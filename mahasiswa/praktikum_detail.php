@@ -28,43 +28,43 @@ $stmt->close();
 require_once 'templates/header_mahasiswa.php';
 ?>
 
-<div class="max-w-4xl mx-auto mt-6 bg-white p-6 rounded-lg shadow-md">
-  <div class="flex justify-between items-center mb-4">
-    <div>
-      <h2 class="text-2xl font-bold"><?= htmlspecialchars($prak['nama_praktikum']) ?></h2>
-      <p class="text-gray-600"><?= htmlspecialchars($prak['deskripsi']) ?></p>
-    </div>
-    <a href="../logout.php" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md">Logout</a>
-  </div>
+<!-- ✅ Header Praktikum -->
+<div class="max-w-5xl mx-auto mt-6 bg-white p-8 rounded-xl shadow-md">
+  <h2 class="text-3xl font-bold text-gray-800 mb-2"><?= htmlspecialchars($prak['nama_praktikum']) ?></h2>
+  <p class="text-gray-600"><?= htmlspecialchars($prak['deskripsi']) ?></p>
+</div>
 
+<!-- ✅ Daftar Modul -->
+<div class="max-w-5xl mx-auto mt-6 space-y-6">
   <?php while ($mod = $moduls->fetch_assoc()):
-    // cek laporan
     $st = $conn->prepare("SELECT * FROM laporan WHERE pendaftaran_id=? AND modul_id=?");
     $st->bind_param("ii", $pendaftaran['id'], $mod['id']);
     $st->execute();
     $lap = $st->get_result()->fetch_assoc();
     $st->close();
   ?>
-    <div class="border p-4 mb-4 rounded-lg">
-      <div class="flex justify-between">
+    <div class="bg-white p-6 rounded-lg shadow-md border border-gray-100">
+      <div class="flex flex-col md:flex-row md:justify-between gap-4">
         <div>
-          <h3 class="font-semibold"><?= htmlspecialchars($mod['judul_modul']) ?></h3>
-          <p class="text-sm text-gray-500">Deadline: <?= date('d M Y', strtotime($mod['tanggal_deadline'])) ?></p>
+          <h3 class="text-xl font-semibold text-blue-700"><?= htmlspecialchars($mod['judul_modul']) ?></h3>
+          <p class="text-sm text-gray-500">🕒 Deadline: <?= date('d M Y', strtotime($mod['tanggal_deadline'])) ?></p>
           <?php if ($mod['file_materi']): ?>
-            <a href="../uploads/<?= $mod['file_materi'] ?>" class="text-blue-600 hover:underline">Unduh Materi</a>
+            <a href="../uploads/<?= $mod['file_materi'] ?>" class="text-sm text-blue-600 hover:underline mt-1 inline-block">📥 Unduh Materi</a>
           <?php endif; ?>
         </div>
-        <div class="text-right">
+        <div class="text-sm md:text-right text-gray-700">
           <?php if ($lap): ?>
-            <p class="text-green-600">Sudah dikumpulkan</p>
+            <p class="text-green-600 font-medium">✅ Sudah dikumpulkan</p>
             <?php if (!is_null($lap['nilai'])): ?>
-              <p>Nilai: <strong><?= $lap['nilai'] ?></strong></p>
-              <p class="italic"><?= htmlspecialchars($lap['feedback']) ?></p>
+              <p>Nilai: <span class="font-bold"><?= $lap['nilai'] ?></span></p>
+              <?php if ($lap['feedback']): ?>
+                <p class="italic text-gray-500 mt-1">"<?= htmlspecialchars($lap['feedback']) ?>"</p>
+              <?php endif; ?>
             <?php else: ?>
-              <a href="upload_laporan.php" class="text-blue-600 hover:underline">Re-upload Laporan</a>
+              <a href="upload_laporan.php" class="text-blue-600 hover:underline">📤 Re-upload Laporan</a>
             <?php endif; ?>
           <?php else: ?>
-            <a href="upload_laporan.php" class="text-blue-600 hover:underline">Upload Laporan</a>
+            <a href="upload_laporan.php" class="text-blue-600 hover:underline">📤 Upload Laporan</a>
           <?php endif; ?>
         </div>
       </div>
