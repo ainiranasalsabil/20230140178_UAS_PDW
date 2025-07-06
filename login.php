@@ -78,7 +78,7 @@ $conn->close();
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             min-height: 100vh;
-            background: linear-gradient(to bottom right, #2BC0E4, #EAECC6);
+            background: linear-gradient(to bottom right, #2563eb, #60a5fa); /* blue-600 to blue-400 */
             display: flex;
             align-items: center;
             justify-content: center;
@@ -97,7 +97,7 @@ $conn->close();
         h2 {
             text-align: center;
             margin-bottom: 25px;
-            color: #333;
+            color: #2563eb; /* blue-600 */
             font-size: 26px;
             font-weight: bold;
         }
@@ -123,12 +123,12 @@ $conn->close();
         }
 
         input:focus {
-            border-color: #2bc0e4;
+            border-color: #2563eb;
             outline: none;
         }
 
         .btn {
-            background-color: #2bc0e4;
+            background-color: #2563eb; /* blue-600 */
             color: white;
             padding: 12px;
             font-size: 16px;
@@ -141,7 +141,7 @@ $conn->close();
         }
 
         .btn:hover {
-            background-color: #1aa4c3;
+            background-color: #1d4ed8; /* blue-700 */
         }
 
         .message {
@@ -162,7 +162,7 @@ $conn->close();
         }
 
         .register-link a {
-            color: #2bc0e4;
+            color: #2563eb;
             text-decoration: none;
             font-weight: 600;
         }
